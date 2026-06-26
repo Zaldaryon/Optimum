@@ -30,14 +30,13 @@ Optimum is a high-performance, client-side fork of [Vintage Story](https://www.v
 
 ## Install
 
-Download the release for your platform, extract, run. No configuration needed.
+Optimum ships as source. Download the source archive from the [Releases](https://github.com/Zaldaryon/Optimum/releases) page, extract it, and run the build script for your platform. The script downloads the official client on your machine, builds the optimized DLLs, and produces a ready-to-run folder. Requires the .NET 10 SDK.
 
-| Platform | Download |
+| Platform | Command |
 |---|---|
-| Windows x64 | `Optimum-v0.1.0-win-x64.zip` |
-| Linux x64 | `Optimum-v0.1.0-linux-x64.tar.gz` |
-| macOS Apple Silicon | `Optimum-v0.1.0-mac-arm64.dmg` |
-| macOS Intel | `Optimum-v0.1.0-mac-x64.dmg` |
+| Windows x64 | `powershell -ExecutionPolicy Bypass -File build-windows.ps1` |
+| Linux x64 | `./build-linux.sh` |
+| macOS | `./build-macos.sh` |
 
 See the [wiki](https://github.com/Zaldaryon/Optimum/wiki) for detailed installation instructions, build-from-source guide, and feature documentation.
 
@@ -53,7 +52,7 @@ Requires .NET 10 SDK, bash, python3, git, curl, perl.
 make build    # bootstrap + compile (first run downloads ~570MB)
 make test     # 81 unit tests
 make run      # build, deploy, launch
-make package  # release archives for all platforms
+make package  # ready-to-run packages for all platforms (built locally)
 ```
 
 See the [Building from Source](https://github.com/Zaldaryon/Optimum/wiki/Building-from-Source) wiki page for the full guide.
@@ -70,7 +69,7 @@ If Optimum improves your experience, consider supporting development:
 
 ## Legal
 
-Vintage Story is developed and published by [Anego Studios](https://www.vintagestory.at). All game assets inside the download are the property of Anego Studios. Optimum distributes only its modified engine DLLs and shaders. A valid Vintage Story account is required to play.
+Vintage Story is developed and published by [Anego Studios](https://www.vintagestory.at). Optimum distributes no game files: it ships only its own source, the performance patches and Optimum source files. It contains no game assets, no prebuilt binaries, and none of the official client code. The build downloads the official client from Anego on your machine and applies the Optimum patches there, so the assets, runtime, and resulting DLLs all stay local to your install. A valid Vintage Story account is required to play.
 
 ## License
 
