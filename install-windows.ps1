@@ -264,7 +264,7 @@ function Invoke-OptimumBuild {
                 $slnxContent = [System.IO.File]::ReadAllText($slnx)
                 $slnxContent = $slnxContent -replace '(?m)[^\r\n]*Optimum\.Tests[^\r\n]*(\r?\n)?', ''
                 [System.IO.File]::WriteAllText($slnx, $slnxContent)
-                dotnet build $slnx -c Release --nologo -v q /p:WarningLevel=0 2>&1 |
+                dotnet build $slnx -c Release --nologo --no-incremental -v q /p:WarningLevel=0 2>&1 |
                     Where-Object { $_ -match 'error|Error|->|BUILD' } |
                     ForEach-Object { Write-Log ([string]$_) }
             } finally { $ErrorActionPreference = $prevEAP }
