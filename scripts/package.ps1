@@ -100,7 +100,8 @@ try {
     Write-Host "Applying optimized DLLs..."
     Copy-Item -Force (Join-Path $buildOut 'Vintagestory.dll') $stageDir
     Copy-Item -Force (Join-Path $libOut 'VintagestoryLib.dll') $stageDir
-    Copy-Item -Force (Join-Path $buildOut 'VintagestoryAPI.dll') $stageDir
+    $apiOut = Join-Path $repoRoot (Join-Path 'bin' (Join-Path 'Release' 'net10.0'))
+    Copy-Item -Force (Join-Path $apiOut 'VintagestoryAPI.dll') $stageDir
 
     # Apply optimized shaders.
     $shaderSrc = Join-Path $repoRoot 'sources/shaders'
