@@ -110,4 +110,8 @@ No Harmony overhead. No runtime patching. Native compiled performance.
 
 ## License
 
-GPL-3.0 with the Commons Clause. The source is open: read it, modify it, share it. Copyleft applies, so any work that includes Optimum source carries the same license. The Commons Clause adds one rule on top: you may not sell Optimum or a product whose value derives from it. See [LICENSE](LICENSE) for the full terms.
+GPL-3.0 with the Commons Clause. The source is open: read it, modify it, share it. Copyleft applies, so any work that includes Optimum source carries the same license. The Commons Clause adds one rule on top: you may not sell Optimum or a product whose value derives from it.
+
+**Vendor Exception.** The Licensor grants [Anego Studios](https://anegostudios.com) a perpetual, irrevocable, royalty-free license to use, modify, and incorporate Optimum patches into their products. The Commons Clause restriction does not apply to Anego Studios. This exception follows the GPL-3.0 Section 7 additional permissions mechanism.
+
+See [LICENSE](LICENSE) for the full terms.
