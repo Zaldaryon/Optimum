@@ -1348,9 +1348,10 @@ By checking the box below and proceeding, you acknowledge that you have read, un
     $agreeForm.MinimizeBox = $false
     $agreeForm.BackColor = $colBg
 
-    $txt = New-Object System.Windows.Forms.RichTextBox
+    $txt = New-Object System.Windows.Forms.TextBox
     $txt.ReadOnly = $true
-    $txt.ScrollBars = [System.Windows.Forms.RichTextBoxScrollBars]::Vertical
+    $txt.Multiline = $true
+    $txt.ScrollBars = [System.Windows.Forms.ScrollBars]::Vertical
     $txt.Location = New-Object System.Drawing.Point(16, 16)
     $txt.Size = New-Object System.Drawing.Size(492, 290)
     $txt.Text = $disclaimer -replace "`n", "`r`n"
@@ -1359,7 +1360,6 @@ By checking the box below and proceeding, you acknowledge that you have read, un
     $txt.Font = New-Object System.Drawing.Font('Segoe UI', 9)
     $txt.SelectionStart = 0
     $txt.SelectionLength = 0
-    $txt.DetectUrls = $false
     $agreeForm.Controls.Add($txt)
 
     $chk = New-Object System.Windows.Forms.CheckBox
