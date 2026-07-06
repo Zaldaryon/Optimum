@@ -458,7 +458,13 @@ function Invoke-OptimumBuild {
             $ErrorActionPreference = 'Continue'
             try {
                 Write-Phase "Decompiling and patching the engine..."
+                $global:LASTEXITCODE = 0
                 & "$buildRoot/scripts/bootstrap.ps1" -ClientArchive '__skip__' *>&1 | ForEach-Object { Write-Log ([string]$_) }
+                # A failed patch makes bootstrap exit 1 before it syncs the
+                # sources/ overlay; building anyway then fails hundreds of
+                # lines later with misleading CS0103 errors about Optimum
+                # types. Stop at the real failure instead.
+                if ($LASTEXITCODE -ne 0) { throw "Decompile/patch step failed (bootstrap exit code $LASTEXITCODE). Check the lines above for the failing patch or file." }
 
                 Write-Phase "Building Optimum (this takes a moment)..."
                 # Strip test project from slnx (not needed for installer)

@@ -1456,3 +1456,7 @@ try {
 } finally {
     Pop-Location
 }
+# Explicit success code: install-windows.ps1 gates on $LASTEXITCODE after
+# invoking this script, and without this it would hold whatever the last
+# native command happened to return.
+exit 0
