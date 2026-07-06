@@ -1387,20 +1387,11 @@ By checking the box below and proceeding, you acknowledge that you have read, un
     $chk.AutoSize = $true
     $chk.ForeColor = $colText
     $chk.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-    $chk.Visible = $false
+    $chk.Visible = $true
     $agreeForm.Controls.Add($chk)
 
-    # Show the checkbox only after the user scrolls to the bottom.
-    $script:eulaScrolledToEnd = $false
-    $txt.Add_VScroll({
-        $pos = $txt.GetPositionFromCharIndex($txt.TextLength)
-        if ($pos.Y -le $txt.ClientSize.Height) {
-            if (-not $script:eulaScrolledToEnd) {
-                $script:eulaScrolledToEnd = $true
-                $chk.Visible = $true
-            }
-        }
-    })
+    # Checkbox visible immediately (TextBox has no VScroll event).
+    $script:eulaScrolledToEnd = $true
 
     $btnAccept = New-FlatButton -Text 'Continue' -W 110 -H 34
     $btnAccept.Location = New-Object System.Drawing.Point(270, 355)
