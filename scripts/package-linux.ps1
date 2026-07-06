@@ -109,22 +109,30 @@ try {
     }
 
     # Merge translation strings (text-based; vanilla JSON has case-duplicate keys that break ConvertFrom-Json).
+    # Read/write explicitly as UTF-8 via .NET, not Get-Content/Set-Content:
+    # on Windows PowerShell 5.1 those cmdlets default to the system codepage
+    # for a BOM-less file, mangling every non-ASCII character (the degree
+    # sign turned "°C" into "Â°C" in the shipped 0.2.2 build). This script
+    # normally runs under pwsh (cross-platform), which defaults to UTF-8, but
+    # the explicit encoding removes the PowerShell-version dependency.
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
     $langSrc = Join-Path $repoRoot 'sources/lang'
     $langDst = Join-Path $stageDir 'assets/game/lang'
     if (Test-Path $langSrc) {
         foreach ($srcFile in (Get-ChildItem $langSrc -Filter '*.json')) {
             $dstFile = Join-Path $langDst $srcFile.Name
             if (-not (Test-Path $dstFile)) { continue }
-            $lines = (Get-Content $srcFile.FullName) | Where-Object { $_ -match '^\s*"optimum-' }
+            $lines = [System.IO.File]::ReadAllLines($srcFile.FullName, [System.Text.Encoding]::UTF8) |
+                Where-Object { $_ -match '^\s*"optimum-' }
             if ($lines.Count -eq 0) { continue }
-            $dstText = Get-Content $dstFile -Raw
+            $dstText = [System.IO.File]::ReadAllText($dstFile, [System.Text.Encoding]::UTF8)
             $dstText = $dstText.TrimEnd()
             if ($dstText.EndsWith('}')) {
                 $dstText = $dstText.Substring(0, $dstText.Length - 1).TrimEnd()
                 if (-not $dstText.EndsWith(',')) { $dstText += ',' }
                 $dstText += "`r`n" + ($lines -join "`r`n") + "`r`n}"
             }
-            Set-Content $dstFile -Value $dstText -Encoding UTF8
+            [System.IO.File]::WriteAllText($dstFile, $dstText, $utf8NoBom)
         }
     }
 

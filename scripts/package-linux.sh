@@ -235,10 +235,14 @@ if [[ -d "$LANG_SRC" ]]; then
         [[ -f "$src_file" ]] || continue
         dst_file="$LANG_DST/$(basename "$src_file")"
         [[ -f "$dst_file" ]] || continue
+        # Explicit encoding='utf-8' on every open(): python3's default is the
+        # locale's preferred encoding, which is ASCII/C on a minimal/C-locale
+        # system and would mangle the lang files' non-ASCII characters
+        # (accented letters, the degree sign) on read.
         python3 -c "
 import json, sys
-with open(sys.argv[1]) as f: src = json.load(f)
-with open(sys.argv[2]) as f: dst = json.load(f)
+with open(sys.argv[1], encoding='utf-8') as f: src = json.load(f)
+with open(sys.argv[2], encoding='utf-8') as f: dst = json.load(f)
 dst.update(src)
 with open(sys.argv[2], 'w', encoding='utf-8') as f: json.dump(dst, f, ensure_ascii=False, indent='\t'); f.write('\n')
 " "$src_file" "$dst_file"
