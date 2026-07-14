@@ -1,0 +1,15 @@
+﻿powershell.exe : Get-Content : Não é possível localizar o caminho 'C:\Users\vitor\Github\Optimum\VERSION' porque ele 
+não existe.
+No linha:4 caractere:15
++ ...   $output = powershell.exe -NoProfile -ExecutionPolicy Bypass -Comman ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Get-Content : N...ele não existe.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+No C:\Users\vitor\Github\Optimum\scripts\install-windows.ps1:42 caractere:21
++ ... timumBuildVer = (Get-Content (Join-Path $Root 'VERSION') -Raw).Trim()
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\vitor\Github\Optimum\VERSION:String) [Get-Content], ItemNotFou 
+   ndException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 

@@ -1,0 +1,8 @@
+Get-Content : N∆o Ç poss°vel localizar o caminho 'C:\Users\vitor\Github\Optimum\VERSION' porque ele n∆o existe.
+No C:\Users\vitor\Github\Optimum\scripts\install-windows.ps1:42 caractere:21
++ ... timumBuildVer = (Get-Content (Join-Path $Root 'VERSION') -Raw).Trim()
++                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\vitor\Github\Optimum\VERSION:String) [Get-Content], ItemNotFou 
+   ndException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+ 
