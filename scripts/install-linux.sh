@@ -213,7 +213,16 @@ install_ilspycmd() {
     check_dotnet10 || die "ilspycmd requires the .NET 10 SDK."
     local pinned
     pinned=$(pinned_ilspycmd_version)
-    if ! "$DOTNET_BIN" tool update -g ilspycmd --version "$pinned"; then
+    # --allow-downgrade: `tool update --version` refuses to move to an older
+    # or NuGet-considered-newer version otherwise ("This cannot be used to
+    # downgrade versions, you must uninstall newer versions first" -
+    # https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-update).
+    # If update still fails, uninstall before falling back to a fresh
+    # install: `tool install` always refuses when the tool ID already
+    # exists, so retrying it without removing the old one first can never
+    # succeed.
+    if ! "$DOTNET_BIN" tool update -g ilspycmd --version "$pinned" --allow-downgrade; then
+        "$DOTNET_BIN" tool uninstall -g ilspycmd || true
         "$DOTNET_BIN" tool install -g ilspycmd --version "$pinned"
     fi
     export PATH="$HOME/.dotnet/tools:$PATH"
